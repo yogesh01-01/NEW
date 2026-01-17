@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+ - name: aarvi
+   database: banking_db
+   schema: bank
+   tables:
+    - name: customer
