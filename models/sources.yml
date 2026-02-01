@@ -5,4 +5,7 @@ sources:
    database: banking_db
    schema: bank
    tables:
-    - name: customer
+    - name: customers
+    - name: orders
+    - name: payments
+    
