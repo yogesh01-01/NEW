@@ -1,7 +1,7 @@
 version: 2
 
 sources:
- - name: aarvi
+ - name: yogesh
    database: banking_db
    schema: bank
    tables:
