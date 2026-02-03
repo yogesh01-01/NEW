@@ -12,7 +12,7 @@ select
   initcap(nullif(trim(last_name), ''))  as last_name,
   lower(nullif(trim(email), ''))         as email,
   cast(created_at as date)               as customer_created_at
-from {{ source('aarvi', 'customers') }}
+from {{ source('yogesh', 'customers') }}
 
 qualify row_number() over (
   partition by customer_id 

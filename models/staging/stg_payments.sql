@@ -1,7 +1,7 @@
 with source as (
 
     select *
-    from {{ source('aarvi', 'payments') }}
+    from {{ source('yogesh', 'payments') }}
 
 ),
 

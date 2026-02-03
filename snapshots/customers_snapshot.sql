@@ -10,6 +10,6 @@
 }}
 
 select *
-from {{ source('aarvi', 'customers') }}
+from {{ source('yogesh', 'customers') }}
 
 {% endsnapshot %}
