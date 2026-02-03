@@ -15,6 +15,6 @@ select
     LAST_NAME,
     EMAIL,
     CREATED_AT
-from banking_db.bank.customers
+from {{ source('yogesh', 'customers') }}
 
 {% endsnapshot %}
