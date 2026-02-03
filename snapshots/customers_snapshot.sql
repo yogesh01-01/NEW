@@ -2,14 +2,19 @@
 
 {{
     config(
-      target_schema='snapshots',
-      unique_key='customer_id',
-      strategy='timestamp',
-      updated_at='created_at'
+        target_schema='snapshots',
+        unique_key='CUSTOMER_ID',
+        strategy='check',
+        check_cols=['FIRST_NAME', 'LAST_NAME', 'EMAIL']
     )
 }}
 
-select *
-from {{ source('yogesh', 'customers') }}
+select
+    CUSTOMER_ID,
+    FIRST_NAME,
+    LAST_NAME,
+    EMAIL,
+    CREATED_AT
+from banking_db.bank.customers
 
 {% endsnapshot %}

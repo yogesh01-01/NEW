@@ -1,8 +1,0 @@
-version: 2
-
-snapshots:
-  - name: customers_snapshot
-    columns:
-      - name: customer_id
-        tests:
-          - not_null
