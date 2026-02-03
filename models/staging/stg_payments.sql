@@ -5,20 +5,17 @@ with source as (
 
 ),
 
--- 1️⃣ Filter invalid records
+-- 1️⃣ Remove invalid records
 filtered as (
 
     select *
     from source
     where payment_id is not null
       and order_id is not null
-      and amount > 0
-      and payment_date is not null
-      and payment_date <= current_date()
 
 ),
 
--- 2️⃣ Deterministic deduplication
+-- 2️⃣ Deduplicate payments
 deduplicated as (
 
     select *
@@ -27,7 +24,7 @@ deduplicated as (
             *,
             row_number() over (
                 partition by payment_id
-                order by payment_date desc, amount desc
+                order by order_id
             ) as rn
         from filtered
     )
@@ -35,25 +32,32 @@ deduplicated as (
 
 ),
 
--- 3️⃣ Clean & standardize
+-- 3️⃣ Clean & standardize columns
 cleaned as (
 
     select
         payment_id,
         order_id,
-        cast(payment_date as date) as payment_date,
 
+        -- Normalize payment method
         case
-            when payment_method is null then 'OTHER'
+            when payment_method is null then 'UNKNOWN'
             when lower(trim(payment_method)) in ('cc', 'credit card', 'card') then 'CREDIT_CARD'
-            when lower(trim(payment_method)) in ('debit card', 'debit') then 'DEBIT_CARD'
+            when lower(trim(payment_method)) in ('debit', 'debit card') then 'DEBIT_CARD'
             when lower(trim(payment_method)) in ('upi', 'gpay', 'phonepe') then 'UPI'
-            when lower(trim(payment_method)) in ('net banking', 'netbanking') then 'NET_BANKING'
-            when lower(trim(payment_method)) = 'cash' then 'CASH'
+            when lower(trim(payment_method)) in ('cash') then 'CASH'
             else 'OTHER'
         end as payment_method,
 
-        round(amount, 2) as payment_amount
+        -- Normalize payment status
+        case
+            when payment_status is null then 'UNKNOWN'
+            when lower(trim(payment_status)) in ('success', 'successful', 'completed') then 'SUCCESS'
+            when lower(trim(payment_status)) in ('failed', 'failure') then 'FAILED'
+            when lower(trim(payment_status)) in ('pending', 'in_progress') then 'PENDING'
+            else 'UNKNOWN'
+        end as payment_status
+
     from deduplicated
 
 )
