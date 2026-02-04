@@ -18,3 +18,5 @@ select
 from {{ source('yogesh', 'customers') }}
 
 {% endsnapshot %}
+
+
