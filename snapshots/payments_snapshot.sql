@@ -6,7 +6,8 @@
         target_database='banking_db',
         unique_key='PAYMENT_ID',
         strategy='timestamp',
-        updated_at='UPDATED_AT'
+        updated_at='UPDATED_AT',
+        invalidate_hard_deletes=True
     )
 }}
 
