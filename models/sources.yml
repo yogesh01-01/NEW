@@ -6,7 +6,14 @@ sources:
     schema: bank
     tables:
       - name: customers
+        tests:
+         - not_null:
+           - name: customer_id
       - name: orders
       - name: payments
+        tests:
+          - not_null:
+           - name: payment_id
+
 
     
