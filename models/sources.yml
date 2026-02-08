@@ -1,7 +1,5 @@
 version: 2
 
-version: 2
-
 sources:
   - name: yogesh
     database: banking_db
@@ -20,6 +18,14 @@ sources:
             tests:
               - not_null
               - unique
+
+      - name: orders
+        columns:
+          - name: ORDER_ID
+            tests:
+              - not_null
+              - unique
+
 
 
 
