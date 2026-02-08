@@ -9,11 +9,12 @@ sources:
         tests:
          - not_null:
            - name: customer_id
-      - name: orders
       - name: payments
-        tests:
-          - not_null:
-           - name: payment_id
+        columns:
+          - name: PAYMENT_ID
+            tests:
+              - not_null
+              - unique
 
 
     
