@@ -1,0 +1,13 @@
+version: 2
+sources:
+  - name: raw_data
+    database: interview
+    schema: practice
+    tables:
+      - name: customers
+        columns:
+          - name: emp_id
+            tests:
+              - not_null
+              - unique 
+              
