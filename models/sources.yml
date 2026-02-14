@@ -1,13 +1,11 @@
+
 version: 2
 sources:
-  - name: raw_data
-    database: interview
-    schema: practice
+  - name: my_raw
+    database : yogesh
+    schema: sakshi
     tables:
-      - name: customers
-        columns:
-          - name: emp_id
-            tests:
-              - not_null
-              - unique 
-              
+      - name: transactions
+      - name: tuser
+      - name: marchant
+      - name: payment             
