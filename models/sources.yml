@@ -5,7 +5,7 @@ sources:
     database : yogesh
     schema: sakshi
     tables:
-      - name: transactions
+      - name: transaction
       - name: tuser
       - name: marchant
       - name: payment             
